@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Library Management System - Tables</title>
+  <style>
+    body {
+      font-family: The seasons;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    .table-container {
+      max-height: 300px;
+      overflow: auto;
+      margin-bottom: 40px;
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Library Management System</h1>
+
+  <div class="table-container">
+    <h2>Members</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Join Date</th></tr>
+      </thead>
+      <tbody id="members-tbody">
+    
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Authors</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th></tr>
+      </thead>
+      <tbody id="authors-tbody">
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Publishers</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th></tr>
+      </thead>
+      <tbody id="publishers-tbody">
+       
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Categories</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Category Name</th></tr>
+      </thead>
+      <tbody id="categories-tbody">
+    
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Books</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Title</th><th>Author ID</th><th>Publisher ID</th><th>Category ID</th><th>Year</th><th>Total</th><th>Available</th></tr>
+      </thead>
+      <tbody id="books-tbody">
+       
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Staff</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Position</th><th>Email</th></tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Borrow</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Member ID</th><th>Book ID</th><th>Borrow Date</th><th>Due Date</th><th>Return Date</th></tr>
+      </thead>
+      <tbody id="borrow-tbody">
+       
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Fines</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Borrow ID</th><th>Amount</th><th>Paid</th></tr>
+      </thead>
+      <tbody id="fines-tbody">
+      
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Reservations</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Member ID</th><th>Book ID</th><th>Reservation Date</th></tr>
+      </thead>
+      <tbody id="reservations-tbody">
+       
+      </tbody>
+    </table>
+  </div>
+
+  <div class="table-container">
+    <h2>Returns</h2>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Borrow ID</th><th>Return Date</th><th>Condition</th></tr>
+      </thead>
+      <tbody id="returns-tbody">
+       
+      </tbody>
+    </table>
+  </div>
+  <script>
+  // Members
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/members')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('members-tbody');
+      tbody.innerHTML = '';
+      data.forEach(member => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${member.member_id}</td>
+          <td>${member.name}</td>
+          <td>${member.email}</td>
+          <td>${member.phone}</td>
+          <td>${member.address}</td>
+          <td>${member.join_date}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Authors
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/authors')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('authors-tbody');
+      tbody.innerHTML = '';
+      data.forEach(author => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${author.author_id}</td>
+          <td>${author.name}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Publishers
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/publishers')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('publishers-tbody');
+      tbody.innerHTML = '';
+      data.forEach(pub => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${pub.publisher_id}</td>
+          <td>${pub.name}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Categories
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/categories')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('categories-tbody');
+      tbody.innerHTML = '';
+      data.forEach(cat => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${cat.category_id}</td>
+          <td>${cat.category_name}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Books
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/books')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('books-tbody');
+      tbody.innerHTML = '';
+      data.forEach(book => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.book_id}</td>
+          <td>${book.title}</td>
+          <td>${book.author_id}</td>
+          <td>${book.publisher_id}</td>
+          <td>${book.category_id}</td>
+          <td>${book.year}</td>
+          <td>${book.total}</td>
+          <td>${book.available}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Staff
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/staff')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('staff-tbody');
+      tbody.innerHTML = '';
+      data.forEach(staff => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${staff.staff_id}</td>
+          <td>${staff.name}</td>
+          <td>${staff.position}</td>
+          <td>${staff.email}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Borrow
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/borrow')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('borrow-tbody');
+      tbody.innerHTML = '';
+      data.forEach(borrow => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${borrow.borrow_id}</td>
+          <td>${borrow.member_id}</td>
+          <td>${borrow.book_id}</td>
+          <td>${borrow.borrow_date}</td>
+          <td>${borrow.due_date}</td>
+          <td>${borrow.return_date}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Fines
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/fines')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('fines-tbody');
+      tbody.innerHTML = '';
+      data.forEach(fine => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${fine.fine_id}</td>
+          <td>${fine.borrow_id}</td>
+          <td>${fine.amount}</td>
+          <td>${fine.paid}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Reservations
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/reservations')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('reservations-tbody');
+      tbody.innerHTML = '';
+      data.forEach(res => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${res.reservation_id}</td>
+          <td>${res.member_id}</td>
+          <td>${res.book_id}</td>
+          <td>${res.reservation_date}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+
+  // Returns
+  fetch('https://verbose-space-system-wrxqwj59vx943v5v6-40347.app.github.dev/returns')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('returns-tbody');
+      tbody.innerHTML = '';
+      data.forEach(ret => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${ret.return_id}</td>
+          <td>${ret.borrow_id}</td>
+          <td>${ret.return_date}</td>
+          <td>${ret.condition}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
+</script>
+
+</body>
+</html>
